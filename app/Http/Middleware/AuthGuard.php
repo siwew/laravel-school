@@ -15,7 +15,7 @@ class AuthGuard
      */
     public function handle($request, Closure $next)
     {
-        $guard = $request->post('guard', '');
+        $guard = $request->post('provider', '');
         if (!empty($guard)) {
             config(['auth.guards.api.provider' => $guard]);
         }

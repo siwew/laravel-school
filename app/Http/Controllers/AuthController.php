@@ -73,7 +73,7 @@ class AuthController extends Controller
                 'username' => $account,
                 'password' => $password,
                 'scope' => '',
-                'guard' => $type,
+                'provider' => $type,
             ],
         ]);
 
