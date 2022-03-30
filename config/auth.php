@@ -69,16 +69,16 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admin' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
 
-        'Students' => [
+        'student' => [
             'driver' => 'eloquent',
             'model' => App\Model\Student::class,
         ],
-        'Teachers' => [
+        'teacher' => [
             'driver' => 'eloquent',
             'model' => App\Model\Teacher::class,
         ],

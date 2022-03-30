@@ -22,8 +22,4 @@ class Student extends Model
 
     protected $hidden = ['password', 'remember_token'];
 
-    public function findForPassport($username)
-    {
-        return $this->where('account', $username)->first();
-    }
 }
