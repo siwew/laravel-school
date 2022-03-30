@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpKernel\HttpCache\HttpCache;
 
 class Register extends FormRequest
 {
@@ -40,5 +43,14 @@ class Register extends FormRequest
             'email.unique'  => '邮箱已存在',
             'password.min'  => '密码长度不能小于6位',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        $error = $validator->errors()->first();
+
+        $response = response()->json(['msg'=>$error,'status'=>'error']);
+
+        throw new HttpResponseException($response);
     }
 }

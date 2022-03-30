@@ -15,9 +15,9 @@ use Illuminate\Http\Request;
 
 
 
-Route::namespace('Api')->group(function () {
+Route::group([], function () {
 
-    Route::post('login', 'AuthController@login');
+    Route::any('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('register', 'AuthController@register');
 

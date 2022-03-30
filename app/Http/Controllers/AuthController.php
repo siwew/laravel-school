@@ -17,7 +17,12 @@ class AuthController extends Controller
      */
     public function register(Register $request)
     {
-        $data = $request->all();
+        $data = $request->only('email', 'password', 'name');
+
+        if (!$data['email'] || !$data['password']) {
+            return api()->failed('账号或密码不能为空');
+        }
+
         $data['password'] = bcrypt($data['password']);
 
         Teacher::create($data);
@@ -34,27 +39,30 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $account = $request->input('account', '');
+        $account = $request->input('username', '');
         $password = $request->input('password', '');
         $type = $request->input('type', '');
 
-        if (!$account || !$password) {
-            return api()->failed('账号或密码不能为空');
+        if (!$account | !$password) {
+            return api()->failed('账号不能为空');
+        }
+        if (!$type) {
+            return api()->failed('请选择登录类型');
         }
 
-        if (empty($type)) {
-            return api()->failed('登录类型不能为空');
-        }
+//        $login_data = [
+//            'email' => $account,
+//            'password' => $password,
+//        ];
 
-        $check = \Auth::guard($type)->attempt([
-            'account' => $account,
-            'password' => $password
-        ])->check();
+//        $check = auth()->guard($type)->attempt($login_data);
+////        $check = \Auth::guard($type)->attempt($login_data
+////        )->check();
 
-        if (!$check) {
-            return api()->failed('账号或密码错误');
-        }
-
+//        if (!$check) {
+//            return api()->failed('账号或密码错误');
+//        }
+//        $api = 'http://101.43.52.189/mianshi/public/index.php' . '/oauth/token';
         $api = config('app.url') . '/oauth/token';
         $client = new Client();
         $response = $client->post($api, [
@@ -65,8 +73,10 @@ class AuthController extends Controller
                 'username' => $account,
                 'password' => $password,
                 'scope' => '',
+                'guard' => $type,
             ],
         ]);
+
         return api()->success(json_decode((string) $response->getBody(), true));
     }
 

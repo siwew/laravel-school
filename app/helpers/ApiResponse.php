@@ -97,7 +97,7 @@ class ApiResponse
      *
      * @return mixed
      */
-    public function failed($message, $code = HttpCode::HTTP_BAD_REQUEST, $status = 'error')
+    public function failed($message, $code = 500, $status = 'error')
     {
         return $this->setStatusCode($code)->message($message, $status);
     }
@@ -113,7 +113,7 @@ class ApiResponse
     public function message($message, $status = 'success', $code = null)
     {
         return $this->status([
-            'message' => $message,
+            'msg' => $message,
         ], $status, $code);
     }
 
