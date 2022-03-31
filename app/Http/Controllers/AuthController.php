@@ -72,7 +72,6 @@ class AuthController extends Controller
                 'client_secret' => config('passport.client_secret'),
                 'username' => $account,
                 'password' => $password,
-                'scope' => '',
                 'provider' => $type,
             ],
         ]);
