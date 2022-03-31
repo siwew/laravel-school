@@ -6,6 +6,7 @@ use App\Http\Requests\Register;
 use App\Model\Teacher;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
             return api()->failed('账号或密码不能为空');
         }
 
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = Hash::make($data['password']);
 
         Teacher::create($data);
 
@@ -71,7 +72,7 @@ class AuthController extends Controller
                 'client_id' => config('passport.client_id'),
                 'client_secret' => config('passport.client_secret'),
                 'username' => $account,
-                'password' => bcrypt($password),
+                'password' => $password,
                 'provider' => $type,
             ],
         ]);
