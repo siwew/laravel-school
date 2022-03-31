@@ -38,16 +38,16 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'admin',
         ],
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'Students',
+            'provider' => 'student',
         ],
         'teacher' => [
             'driver' => 'passport',
-            'provider' => 'Teachers',
+            'provider' => 'teacher',
         ],
     ],
 
