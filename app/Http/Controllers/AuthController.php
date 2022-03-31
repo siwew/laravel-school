@@ -71,7 +71,7 @@ class AuthController extends Controller
                 'grant_type' => 'password',
                 'client_id' => config('passport.client_id'),
                 'client_secret' => config('passport.client_secret'),
-                'username' => $account,
+                'email' => $account,
                 'password' => $password,
                 'provider' => $type,
             ],
