@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Config;
 
 class AuthGuard
 {
@@ -15,9 +16,9 @@ class AuthGuard
      */
     public function handle($request, Closure $next)
     {
-        $guard = $request->post('provider', '');
+        $guard = $request->input('provider', '');
         if (!empty($guard)) {
-            config()->set('auth.guards.api.provider', $guard);
+            Config::set('auth.guards.api.provider', $guard);
         }
 
         return $next($request);
